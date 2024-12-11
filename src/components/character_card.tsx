@@ -1,22 +1,9 @@
 import {FC} from "react";
 import Character from "../Character.ts";
-import {
-    Button,
-    ButtonGroup,
-    Card,
-    CardActions,
-    CardContent,
-    Divider,
-    IconButton,
-    List,
-    ListItem,
-    ListItemText,
-    Slider,
-    Typography
-} from "@mui/material";
+import {Button, Card, CardActions, CardContent, Divider, List, Typography} from "@mui/material";
 import useCharacterStore from "../store";
-import {PlusOneOutlined, Remove} from "@mui/icons-material";
-import {SkillEntity, StatEntity} from "../entity.tsx";
+import CharacterStatInfo from "./character_stat_info.tsx";
+import CharacterSkillInfo from "./character_skill_info.tsx";
 
 interface Props {
     character: Character;
@@ -100,53 +87,5 @@ const CharacterCard: FC<Props> = ({character}) => {
     )
 }
 
-interface SkillProps {
-    skill: SkillEntity;
-    stat: StatEntity
-    character: Character;
-    handleUpdateSkill: (key: string, value: number) => void;
-}
-
-const CharacterSkillInfo: FC<SkillProps> = ({skill, stat, character, handleUpdateSkill}) => {
-    return (
-        <div>
-            <ListItemText primary={skill.name} secondary={character.getSkillLevelName(skill)}/>
-            <Slider
-                value={skill.level == 0 ? -1 : skill.level}
-                step={1}
-                onChange={(_, v) => handleUpdateSkill(skill.name, v as number)}
-                min={skill.level == 0 ? -1 : 0}
-                max={Math.min(stat.level, character.maxSkillLevel)}
-                valueLabelDisplay="auto"
-            />
-        </div>
-    )
-}
-
-interface StatProps {
-    statItem: StatEntity
-    addStat: () => void
-    removeStat: () => void
-}
-
-const CharacterStatInfo: FC<StatProps> = ({statItem, addStat, removeStat}) => {
-    return (
-        <ListItem secondaryAction={
-            statItem.edit ?
-                <ButtonGroup>
-                    <IconButton
-                        onClick={addStat}>
-                        <PlusOneOutlined/>
-                    </IconButton>
-                    <IconButton
-                        onClick={removeStat}>
-                        <Remove/>
-                    </IconButton>
-                </ButtonGroup> : undefined}>
-            <ListItemText primary={statItem.level}/>
-            <ListItemText primary={statItem.name}/>
-        </ListItem>
-    )
-}
 
 export default CharacterCard;
