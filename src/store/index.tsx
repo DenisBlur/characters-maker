@@ -24,7 +24,7 @@ export const createBaseSkills = (): SkillEntity[] => [
 ];
 
 export const createBaseStats = (): CharacterStats => {
-    return  {
+    return {
         strength: {name: "Сила", level: 0, edit: true},
         dexterity: {name: "Ловкость", level: 0, edit: true},
         intelligence: {name: "Интеллект", level: 0, edit: true},
@@ -52,13 +52,12 @@ const useCharacterStore = create<CharactersStore>(
         removeCharacter: (id: string) =>
             set((state) => ({characters: state.characters.filter((char) => char.id !== id)})),
         importCharacter: (jsonString: string) => {
-            try {
-                const importedCharacter: Character | null = Character.fromJSON(jsonString);
-                if (!importedCharacter) return;
-                set((state) => ({characters: [...state.characters, importedCharacter]}));
-            } catch (error) {
-                console.error('Error importing character:', error);
+            const importedCharacter: Character | null = Character.fromJSON(jsonString);
+            if (!importedCharacter) {
+                console.error('Error importing character');
+                return;
             }
+            set((state) => ({characters: [...state.characters, importedCharacter]}));
         },
     })
 );

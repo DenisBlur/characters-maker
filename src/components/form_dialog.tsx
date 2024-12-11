@@ -57,8 +57,8 @@ const FormDialog: React.FC<Props> = ({onAdd}) => {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button type="submit">Subscribe</Button>
+                    <Button onClick={handleClose}>Отмена</Button>
+                    <Button type="submit">Создать</Button>
                 </DialogActions>
             </Dialog>
         </React.Fragment>
